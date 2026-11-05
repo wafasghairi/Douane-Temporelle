@@ -1,0 +1,6 @@
+{
+  "name": "Douane Temporelle",
+  "description": "Poste de contrôle temporel pour inspecter et valider les sauts temporels des voyageurs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
