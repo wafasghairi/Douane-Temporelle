@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Manifest ta3 l'application elli fih l'configuration globale w les activités kol -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DouaneTemporelle">
+
+        <!-- L'activité loula wel ra2isia MainActivity elli tet7al lkol fel debut -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- L'activité thenya VerificationActivity mta3 fa7s passeport wel paradoxe -->
+        <activity
+            android:name=".VerificationActivity"
+            android:exported="false"
+            android:label="@string/titre_passeport" />
+
+        <!-- L'activité theltha ResultActivity mta3 verdict final mta3 douana -->
+        <activity
+            android:name=".ResultActivity"
+            android:exported="false"
+            android:label="@string/titre_decision_douane" />
+
+        <!-- L'activité rab3a ChatActivity mta3 el chatbot en ligne b Gemini -->
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false"
+            android:label="@string/titre_chat_douanier"
+            android:windowSoftInputMode="adjustResize" />
+
+    </application>
+
+</manifest>

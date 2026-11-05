@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- مظهر التطبيق المخصص بنمط Material بدون شريط علوي افتراضي NoActionBar -->
+<resources>
+    <style name="Theme.DouaneTemporelle" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- اللون الأساسي لشريط الحالة والعناصر البارزة -->
+        <item name="android:colorPrimary">@color/couleur_carte_sombre</item>
+        <item name="android:colorPrimaryDark">@color/couleur_fond_sombre</item>
+        <item name="android:colorAccent">@color/couleur_or_temporel</item>
+        <!-- لون خلفية النوافذ الافتراضي الداكن المتناسق مع تصميم Douane Temporelle -->
+        <item name="android:windowBackground">@color/couleur_fond_sombre</item>
+        <item name="android:statusBarColor">@color/couleur_fond_sombre</item>
+        <item name="android:navigationBarColor">@color/couleur_fond_sombre</item>
+    </style>
+</resources>

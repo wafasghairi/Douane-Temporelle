@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ملف الألوان المخصص لتطبيق Douane Temporelle بتعليقات عربية كاملة وأرقام 0-9 -->
+<resources>
+    <!-- ألوان السمة العامة والخلفيات -->
+    <color name="couleur_fond_sombre">#0F171E</color>
+    <color name="couleur_carte_sombre">#1A242F</color>
+    <color name="couleur_carte_bordure">#2D3C4D</color>
+
+    <!-- ألوان تذكرة السفر وجواز السفر الزمني (طراز الورق العتيق) -->
+    <color name="couleur_parchemin">#F7F1E1</color>
+    <color name="couleur_parchemin_sombre">#E9DFC7</color>
+    <color name="couleur_bordure_parchemin">#8C7355</color>
+    <color name="couleur_encre_noire">#1F1A17</color>
+    <color name="couleur_encre_secondaire">#5E5147</color>
+
+    <!-- الألوان الذهبية الخاصة بالزمن والساعة التناظرية -->
+    <color name="couleur_or_temporel">#D4AF37</color>
+    <color name="couleur_or_accent">#F39C12</color>
+    <color name="couleur_or_sombre">#A38020</color>
+
+    <!-- ألوان قرارات مصلحة الجمارك الزمنية (موافقة أو رفض) -->
+    <color name="couleur_approuve">#1B5E20</color>
+    <color name="couleur_approuve_clair">#2E7D32</color>
+    <color name="couleur_refuse">#B71C1C</color>
+    <color name="couleur_refuse_clair">#C62828</color>
+    <color name="couleur_avertissement">#D35400</color>
+    <color name="couleur_desactive">#9E9E9E</color>
+
+    <!-- ألوان النصوص الأساسية -->
+    <color name="couleur_texte_clair">#ECEFF1</color>
+    <color name="couleur_texte_secondaire">#B0BEC5</color>
+    <color name="couleur_fond_champ">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>
