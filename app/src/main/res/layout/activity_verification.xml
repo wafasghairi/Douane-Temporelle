@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- الواجهة الثانية لفحص المفارقات الزمنية بجذر LinearLayout أفقي بأوزان 0.3 و 0.7 وتعليقات عربية وأرقام 0-9 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root_verification_ws"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/couleur_fond_sombre"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:weightSum="1">
+
+    <!-- الجزء الأيسر: صورة جواز السفر بنسبة وزن 0.3 من الشاشة -->
+    <ImageView
+        android:id="@+id/iv_photo_passeport_ws"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.3"
+        android:contentDescription="@string/desc_photo_passeport"
+        android:padding="4dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_passport_photo" />
+
+    <!-- الجزء الأيمن: تخطيط RelativeLayout بنسبة وزن 0.7 يحوي بيانات التذكرة والأزرار -->
+    <RelativeLayout
+        android:id="@+id/rl_details_passeport_ws"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_weight="0.7"
+        android:background="@drawable/bg_ticket_parchment"
+        android:padding="12dp">
+
+        <!-- حاوية قابلة للتمرير لعرض النصوص لتجنب أي تداخل مع الأزرار في مختلف الشاشات -->
+        <ScrollView
+            android:id="@+id/sv_details_content_ws"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_actions_verification_ws"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/ll_textes_passeport_ws"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- عنوان تذكرة الجواز بنمط ختم قديم وخط أحادي المسافة monospace -->
+                <TextView
+                    android:id="@+id/tv_titre_passeport_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.05"
+                    android:text="@string/titre_passeport"
+                    android:textColor="@color/couleur_encre_noire"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- الوصف الفرعي للتذكرة الرسمية -->
+                <TextView
+                    android:id="@+id/tv_sous_titre_ticket_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/sous_titre_ticket"
+                    android:textColor="@color/couleur_encre_secondaire"
+                    android:textSize="10sp" />
+
+                <!-- خط فاصل منقط بنمط التذاكر العتيقة -->
+                <View
+                    android:id="@+id/view_separateur_ws"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/couleur_bordure_parchemin" />
+
+                <!-- عنوان اسم المسافر -->
+                <TextView
+                    android:id="@+id/tv_label_nom_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="@string/label_nom_voyageur"
+                    android:textColor="@color/couleur_encre_secondaire"
+                    android:textSize="11sp" />
+
+                <!-- قيمة اسم المسافر المسترجعة من الـ Intent -->
+                <TextView
+                    android:id="@+id/tv_valeur_nom_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/couleur_encre_noire"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- عنوان مسار السفر عبر السنوات -->
+                <TextView
+                    android:id="@+id/tv_label_trajet_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/label_trajet_temporel"
+                    android:textColor="@color/couleur_encre_secondaire"
+                    android:textSize="11sp" />
+
+                <!-- مسار الانتقال الزمني من سنة الولادة إلى سنة الوجهة -->
+                <TextView
+                    android:id="@+id/tv_valeur_trajet_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/couleur_encre_noire"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <!-- عنوان العمر الزمني المحسوب -->
+                <TextView
+                    android:id="@+id/tv_label_age_temporel_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/label_age_temporel"
+                    android:textColor="@color/couleur_encre_secondaire"
+                    android:textSize="11sp" />
+
+                <!-- قيمة العمر الزمني المحسوب (سنة الوجهة - سنة الولادة) -->
+                <TextView
+                    android:id="@+id/tv_valeur_age_temporel_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/couleur_or_sombre"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- عنوان دافع السفر -->
+                <TextView
+                    android:id="@+id/tv_label_motif_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/label_motif_inspection"
+                    android:textColor="@color/couleur_encre_secondaire"
+                    android:textSize="11sp" />
+
+                <!-- قيمة دافع السفر المصرح به -->
+                <TextView
+                    android:id="@+id/tv_valeur_motif_ws"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/couleur_encre_noire"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- رسالة تحذيرية تظهر فقط عند اكتشاف مفارقة زمنية (عدد أولي مع تعديل الماضي) -->
+                <TextView
+                    android:id="@+id/tv_avertissement_paradoxe_ws"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#1AE65100"
+                    android:fontFamily="monospace"
+                    android:padding="8dp"
+                    android:text="@string/alerte_paradoxe_premier"
+                    android:textColor="@color/couleur_avertissement"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- حاوية الأزرار في أسفل التخطيط النسبي -->
+        <LinearLayout
+            android:id="@+id/ll_actions_verification_ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <!-- زر الموافقة على القفزة الزمنية (يتم تعطيله برمجياً إذا انطبقت شروط المفارقة) -->
+            <Button
+                android:id="@+id/btn_approuver_ws"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_button_approve"
+                android:fontFamily="monospace"
+                android:text="@string/btn_approuver_saut"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <!-- زر رفض القفزة الزمنية لدرء خطر المفارقة -->
+            <Button
+                android:id="@+id/btn_refuser_ws"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_button_reject"
+                android:fontFamily="monospace"
+                android:text="@string/btn_refuser_saut"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

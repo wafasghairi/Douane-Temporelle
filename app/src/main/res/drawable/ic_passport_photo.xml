@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- رسم متجه لصورة شخصية بنمط جواز سفر كلاسيكي للمسافر عبر الزمن -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="160dp"
+    android:viewportWidth="120"
+    android:viewportHeight="160">
+
+    <!-- خلفية بطاقة الصورة داخل الجواز -->
+    <path
+        android:fillColor="#EADDC7"
+        android:pathData="M8,8h104v144h-104z" />
+
+    <!-- إطار الصورة بنمط طابع قديم -->
+    <path
+        android:strokeColor="#8C7355"
+        android:strokeWidth="2"
+        android:pathData="M8,8h104v144h-104z" />
+
+    <!-- رأس وصورة ظلية للمسافر -->
+    <path
+        android:fillColor="#5A4A3A"
+        android:pathData="M60,40a22,22 0 1,0 0.001,0z" />
+
+    <!-- كتف وجسم المسافر -->
+    <path
+        android:fillColor="#5A4A3A"
+        android:pathData="M24,136c0,-28 16,-46 36,-46s36,18 36,46z" />
+
+    <!-- رمز الختم الدائري فوق زاوية الصورة -->
+    <path
+        android:strokeColor="#C0392B"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M85,120a20,20 0 1,0 0.001,0z" />
+</vector>
