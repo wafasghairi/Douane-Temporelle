@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- زر التفتيش الذهبي البارز مع حالات التفاعل والضغط -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_or_accent" />
+            <corners android:radius="8dp" />
+            <padding android:bottom="14dp" android:left="16dp" android:right="16dp" android:top="14dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_or_temporel" />
+            <corners android:radius="8dp" />
+            <padding android:bottom="14dp" android:left="16dp" android:right="16dp" android:top="14dp" />
+        </shape>
+    </item>
+</selector>

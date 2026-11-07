@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- الواجهة الأولى لتسجيل بيانات المسافر الزمني مع التزام كامل بلواحق المعرفات _ws وتعليقات عربية وأرقام 0-9 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv_container_ws"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/couleur_fond_sombre"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/ll_main_container_ws"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- شعار مصلحة الجمارك الزمنية -->
+        <ImageView
+            android:id="@+id/iv_logo_douane_ws"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/desc_logo_douane"
+            android:src="@drawable/douane_logo" />
+
+        <!-- العنوان الرئيسي لشاشة الجمارك -->
+        <TextView
+            android:id="@+id/tv_titre_douane_ws"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.05"
+            android:text="@string/titre_poste_frontiere"
+            android:textColor="@color/couleur_or_temporel"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- العنوان الفرعي لشاشة الجمارك الزمنية -->
+        <TextView
+            android:id="@+id/tv_sous_titre_douane_ws"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/sous_titre_poste_frontiere"
+            android:textColor="@color/couleur_texte_secondaire"
+            android:textSize="13sp" />
+
+        <!-- بطاقة استمارة تسجيل المسافر -->
+        <LinearLayout
+            android:id="@+id/ll_carte_formulaire_ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_card_dark"
+            android:orientation="vertical">
+
+            <!-- عنوان حقل اسم المسافر -->
+            <TextView
+                android:id="@+id/tv_label_nom_ws"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nom_champ"
+                android:textColor="@color/couleur_texte_clair"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- حقل إدخال اسم المسافر -->
+            <EditText
+                android:id="@+id/et_nom_ws"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="@string/hint_nom_voyageur"
+                android:inputType="textPersonName"
+                android:textColor="@color/couleur_encre_noire"
+                android:textColorHint="@color/couleur_encre_secondaire"
+                android:textSize="15sp" />
+
+            <!-- عنوان حقل سنة الولادة -->
+            <TextView
+                android:id="@+id/tv_label_annee_naissance_ws"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_annee_naissance_champ"
+                android:textColor="@color/couleur_texte_clair"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- حقل إدخال سنة الولادة -->
+            <EditText
+                android:id="@+id/et_annee_naissance_ws"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="@string/hint_annee_naissance"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textColor="@color/couleur_encre_noire"
+                android:textColorHint="@color/couleur_encre_secondaire"
+                android:textSize="15sp" />
+
+            <!-- عنوان حقل سنة الوجهة -->
+            <TextView
+                android:id="@+id/tv_label_annee_destination_ws"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_annee_destination_champ"
+                android:textColor="@color/couleur_texte_clair"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- حقل إدخال سنة الوجهة -->
+            <EditText
+                android:id="@+id/et_annee_destination_ws"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="@string/hint_annee_destination"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textColor="@color/couleur_encre_noire"
+                android:textColorHint="@color/couleur_encre_secondaire"
+                android:textSize="15sp" />
+
+            <!-- عنوان قائمة دافع السفر -->
+            <TextView
+                android:id="@+id/tv_label_motif_ws"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_motif_voyage"
+                android:textColor="@color/couleur_texte_clair"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- القائمة المنسدلة لاختيار دافع السفر -->
+            <Spinner
+                android:id="@+id/spinner_motif_ws"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_spinner"
+                android:entries="@array/motifs_voyage" />
+
+            <!-- زر فحص وتفتيش ملف المسافر -->
+            <Button
+                android:id="@+id/btn_inspecter_ws"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_button_gold"
+                android:fontFamily="monospace"
+                android:text="@string/btn_inspecter_profil"
+                android:textColor="@color/couleur_encre_noire"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- زر فتح المحادثة التفاعلية مع ضابط الجمارك الذكي -->
+            <Button
+                android:id="@+id/btn_chat_douanier_ws"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_button_restart"
+                android:fontFamily="monospace"
+                android:text="@string/btn_chat_douanier"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
