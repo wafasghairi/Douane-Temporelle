@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- تصميم إطار ختم الموافقة الرسمي بنمط تأشيرة سفر قديمة ذات إطار مزدوج متقطع -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#26FFFFFF" />
+    <stroke
+        android:width="4dp"
+        android:color="#FFFFFF"
+        android:dashWidth="8dp"
+        android:dashGap="4dp" />
+    <corners android:radius="14dp" />
+    <padding
+        android:bottom="14dp"
+        android:left="24dp"
+        android:right="24dp"
+        android:top="14dp" />
+</shape>
