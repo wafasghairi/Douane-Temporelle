@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- زر رفض القفزة الزمنية باللون الأحمر مع تأثيرات الضغط -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_refuse" />
+            <corners android:radius="6dp" />
+            <padding android:bottom="12dp" android:left="14dp" android:right="14dp" android:top="12dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_refuse_clair" />
+            <corners android:radius="6dp" />
+            <padding android:bottom="12dp" android:left="14dp" android:right="14dp" android:top="12dp" />
+        </shape>
+    </item>
+</selector>

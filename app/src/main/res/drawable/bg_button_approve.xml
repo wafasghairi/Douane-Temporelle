@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- زر الموافقة على القفزة الزمنية مع دعم حالة التعطيل باللون الرمادي وحالة التفعيل باللون الأخضر -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- حالة التعطيل عند اكتشاف مفارقة زمنية عدد أولي -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_desactive" />
+            <corners android:radius="6dp" />
+            <padding android:bottom="12dp" android:left="14dp" android:right="14dp" android:top="12dp" />
+        </shape>
+    </item>
+    <!-- حالة الضغط باللون الأخضر الداكن -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_approuve" />
+            <corners android:radius="6dp" />
+            <padding android:bottom="12dp" android:left="14dp" android:right="14dp" android:top="12dp" />
+        </shape>
+    </item>
+    <!-- الحالة الافتراضية العادية باللون الأخضر -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/couleur_approuve_clair" />
+            <corners android:radius="6dp" />
+            <padding android:bottom="12dp" android:left="14dp" android:right="14dp" android:top="12dp" />
+        </shape>
+    </item>
+</selector>
