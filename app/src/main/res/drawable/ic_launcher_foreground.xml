@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- الطبقة الأمامية لأيقونة التطبيق المتكيفة مع وضع الشعار في المنتصف بحجم 66dp -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="66dp"
+        android:height="66dp"
+        android:drawable="@drawable/douane_logo"
+        android:gravity="center" />
+</layer-list>
