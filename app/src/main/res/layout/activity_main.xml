@@ -162,6 +162,19 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <!-- زر عرض سجل القفزات الزمنية الأخيرة SharedPreferences -->
+            <Button
+                android:id="@+id/btn_historique_ws"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_chip_language"
+                android:fontFamily="monospace"
+                android:text="Historique des sauts"
+                android:textColor="@color/couleur_or_temporel"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <!-- زر فتح المحادثة التفاعلية مع ضابط الجمارك الذكي -->
             <Button
                 android:id="@+id/btn_chat_douanier_ws"

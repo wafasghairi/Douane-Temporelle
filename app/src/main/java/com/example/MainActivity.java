@@ -1,7 +1,10 @@
 package com.example;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,32 +13,32 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 // Déclarina classe publique esmha MainActivity accessible mel autres classes
-// w héritina men Activity bech tekhdem comme une activité Android
 public class MainActivity extends Activity {
 
-    //3malna déclaration lel les composant graphique
+    // 3malna déclaration lel les composant graphique w Option 2 SharedPreferences
     private EditText etNomWs;
     private EditText etAnneeNaissanceWs;
     private EditText etAnneeDestinationWs;
     private Spinner spinnerMotifWs;
     private Button btnInspecterWs;
+    private Button btnHistoriqueWs;
     private Button btnChatDouanierWs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//3malna liaison bin les variables déclarées fel Java w les éléments graphiques correspondants fel fichier XML
-// en utilisant findViewById() w l'ID mta3 kol élément
+
+        // 3malna liaison bin les variables Java w les éléments XML
         etNomWs = findViewById(R.id.et_nom_ws);
         etAnneeNaissanceWs = findViewById(R.id.et_annee_naissance_ws);
         etAnneeDestinationWs = findViewById(R.id.et_annee_destination_ws);
         spinnerMotifWs = findViewById(R.id.spinner_motif_ws);
         btnInspecterWs = findViewById(R.id.btn_inspecter_ws);
+        btnHistoriqueWs = findViewById(R.id.btn_historique_ws);
         btnChatDouanierWs = findViewById(R.id.btn_chat_douanier_ws);
 
-//7attina écouteur d'événement 3al bouton btnInspecterWs bech ki l'utilisateur yenzel 3lih
-// te5dem méthode onClick() eli t3ayet lel fonction traiterInspectionWs() bech tebda vérification des informations
+        // Ecouteur d'événement 3al bouton btnInspecterWs
         btnInspecterWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +46,15 @@ public class MainActivity extends Activity {
             }
         });
 
-        // 7attina écouteur d'événement 3al bouton chat bech y7el ChatActivity
+        // Option 2: Ecouteur d'événement 3al bouton Historique des Sauts (SharedPreferences)
+        btnHistoriqueWs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afficherHistoriqueSharedPreferencesWs();
+            }
+        });
+
+        // Ecouteur d'événement 3al bouton chat bech y7el ChatActivity
         btnChatDouanierWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,23 +63,48 @@ public class MainActivity extends Activity {
             }
         });
     }
-//3malna fonction traiterInspectionWs() bech net2akdou men validité des données
-// w ta9ra les informations saisies par l'utilisateur
-// tna7i les espaces supplémentaires w stockinahom fi variables de type String
+
+    // Fonction Option 2: Sauvegarde ta3 l'inspection fel SharedPreferences
+    private void enregistrerInSharedPreferencesWs(String nom, int anneeNais, int anneeDest) {
+        SharedPreferences prefs = getSharedPreferences("PREFS_SAUTS_TEMPORELS", Context.MODE_PRIVATE);
+        String ancienHistorique = prefs.getString("DERNIERS_VOYAGEURS", "");
+        ancienHistorique = ancienHistorique.replace("Aucun saut enregistré.", "").trim();
+        if (!ancienHistorique.isEmpty()) {
+            ancienHistorique = "\n" + ancienHistorique;
+        }
+        String nouvelEntree = "• " + nom + " (" + anneeNais + " ➔ " + anneeDest + ")";
+        prefs.edit().putString("DERNIERS_VOYAGEURS", nouvelEntree + ancienHistorique).apply();
+    }
+
+    // Fonction Option 2: Affichage mta3 l'historique enregistré fil SharedPreferences
+    private void afficherHistoriqueSharedPreferencesWs() {
+        SharedPreferences prefs = getSharedPreferences("PREFS_SAUTS_TEMPORELS", Context.MODE_PRIVATE);
+        String historique = prefs.getString("DERNIERS_VOYAGEURS", "Aucun saut enregistré.");
+        historique = historique.replace("Aucun saut enregistré.", "").trim();
+        if (historique.isEmpty()) {
+            historique = "Aucun saut enregistré.";
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Historique des Sauts Temporels")
+                .setMessage(historique)
+                .setPositiveButton("Fermer", null)
+                .show();
+    }
+
     private void traiterInspectionWs() {
         String nom = etNomWs.getText().toString().trim();
         String anneeNaissanceStr = etAnneeNaissanceWs.getText().toString().trim();
         String anneeDestinationStr = etAnneeDestinationWs.getText().toString().trim();
         String motif = spinnerMotifWs.getSelectedItem().toString();
-        // Correction bug validation: vérifier en plus que le nom contient au moins 2 caractères
+
         if (nom.isEmpty() || nom.length() < 2) {
             etNomWs.setError(getString(R.string.erreur_nom_vide));
             etNomWs.requestFocus();
             Toast.makeText(MainActivity.this, R.string.erreur_nom_vide, Toast.LENGTH_SHORT).show();
             return;
         }
-//vérifina ken champ année de naissance fera8 w ken fera8 n'affichiw message d'erreur
-// nraja3ou le curseur lel champ bech l'utilisateur ysala7ha w nwa9fou l'exécution avec return
+
         if (anneeNaissanceStr.isEmpty()) {
             etAnneeNaissanceWs.setError(getString(R.string.erreur_annee_naissance_vide));
             etAnneeNaissanceWs.requestFocus();
@@ -100,8 +136,10 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this, R.string.erreur_annee_destination_anterieure, Toast.LENGTH_LONG).show();
             return;
         }
-// 3malna Intent bech nemchiw mel MainActivity lel VerificationActivity
-// w b3athna les informations mta3 voyageur avec putExtra() ba3d bdina l'activité jdida avec startActivity().
+
+        // Option 2: Enregistrer el voyageur fil SharedPreferences
+        enregistrerInSharedPreferencesWs(nom, anneeNaissance, anneeDestination);
+
         Intent intent = new Intent(MainActivity.this, VerificationActivity.class);
         intent.putExtra(Keys.cleNom(Keys.MATRICULE), nom);
         intent.putExtra(Keys.cleAnneeNaissance(Keys.MATRICULE), anneeNaissance);
