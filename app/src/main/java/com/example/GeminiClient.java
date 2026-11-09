@@ -18,11 +18,10 @@ import java.util.concurrent.Executors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+// Client GeminiClient: Client HTTP natif bech n'connectiw el chatbot b l'API IA Générative (Google Gemini , System Prompt maktoub fel README.md)
 public final class GeminiClient {
 
     private static final String TAG = "GEMINI";
-
-    public static final String MODEL_NAME = "gemini-3.5-flash-lite";
 
     public interface ReponseCallback {
         void onSuccess(String reponse);
@@ -34,6 +33,7 @@ public final class GeminiClient {
 
     private GeminiClient() {}
 
+    // Fonction envoyerMessage: Tab3ath el payload w el System Prompt mta3 el Douanier IA (AI Generated)
     public static void envoyerMessage(
             final Context context,
             final List<ChatMessage> historique,
@@ -51,14 +51,47 @@ public final class GeminiClient {
                         return;
                     }
 
+                    // N'recuperiw el System Prompt fih el consignes mta3 l'IA (AI Generated, maktoub fel README.md)
                     String systemInstruction = context.getString(R.string.gemini_system_instruction);
-                    JSONObject payload = construirePayload(systemInstruction, historique, messageActuel);
+                    boolean isOpenAI = cleApi.trim().startsWith("sk-");
 
-                    URL url = new URL("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL_NAME + ":generateContent");
+                    URL url;
+                    JSONObject payload = new JSONObject();
+
+                    if (isOpenAI) {
+                        url = new URL("https://api.openai.com/v1/chat/completions");
+                        payload.put("model", "gpt-4o-mini");
+                        payload.put("temperature", 0.3);
+                        payload.put("max_tokens", 1024);
+
+                        JSONArray messages = new JSONArray();
+                        messages.put(new JSONObject().put("role", "system").put("content", systemInstruction));
+
+                        List<ChatMessage> listeFiltree = preparerHistorique(historique, messageActuel);
+                        for (ChatMessage msg : listeFiltree) {
+                            messages.put(new JSONObject()
+                                    .put("role", msg.isUser() ? "user" : "assistant")
+                                    .put("content", msg.getTexte()));
+                        }
+                        payload.put("messages", messages);
+
+                    } else {
+                        url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent");
+                        payload = construirePayloadGemini(systemInstruction, historique, messageActuel);
+                    }
+
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                    connection.setRequestProperty("x-goog-api-key", cleApi.trim());
+
+                    if (isOpenAI) {
+                        connection.setRequestProperty("Authorization", "Bearer " + cleApi.trim());
+                    } else if (cleApi.trim().startsWith("AQ.")) {
+                        connection.setRequestProperty("Authorization", "Bearer " + cleApi.trim());
+                    } else {
+                        connection.setRequestProperty("x-goog-api-key", cleApi.trim());
+                    }
+
                     connection.setConnectTimeout(25000);
                     connection.setReadTimeout(60000);
                     connection.setInstanceFollowRedirects(true);
@@ -72,7 +105,7 @@ public final class GeminiClient {
                     int statusCode = connection.getResponseCode();
                     if (statusCode == 200) {
                         String reponseJson = lireFlux(connection.getInputStream());
-                        final String texte = extraireTexteReponse(reponseJson);
+                        final String texte = isOpenAI ? extraireTexteOpenAI(reponseJson) : extraireTexteGemini(reponseJson);
                         MAIN_HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
@@ -96,13 +129,12 @@ public final class GeminiClient {
         });
     }
 
-    private static JSONObject construirePayload(
+    private static JSONObject construirePayloadGemini(
             String systemInstruction,
             List<ChatMessage> historique,
             String messageActuel) throws Exception {
 
         JSONObject payload = new JSONObject();
-
         JSONObject sysObj = new JSONObject();
         JSONArray sysParts = new JSONArray();
         sysParts.put(new JSONObject().put("text", systemInstruction));
@@ -129,7 +161,7 @@ public final class GeminiClient {
         return payload;
     }
 
-    private static String extraireTexteReponse(String reponseJson) throws Exception {
+    private static String extraireTexteGemini(String reponseJson) throws Exception {
         JSONObject root = new JSONObject(reponseJson);
         JSONArray candidates = root.optJSONArray("candidates");
         if (candidates != null && candidates.length() > 0) {
@@ -152,6 +184,22 @@ public final class GeminiClient {
             }
         }
         throw new Exception("Réponse vide");
+    }
+
+    private static String extraireTexteOpenAI(String reponseJson) throws Exception {
+        JSONObject root = new JSONObject(reponseJson);
+        JSONArray choices = root.optJSONArray("choices");
+        if (choices != null && choices.length() > 0) {
+            JSONObject choice = choices.getJSONObject(0);
+            JSONObject message = choice.optJSONObject("message");
+            if (message != null && message.has("content")) {
+                String texte = message.optString("content").trim();
+                if (!texte.isEmpty()) {
+                    return texte;
+                }
+            }
+        }
+        throw new Exception("Réponse vide OpenAI");
     }
 
     private static List<ChatMessage> preparerHistorique(List<ChatMessage> source, String messageActuel) {

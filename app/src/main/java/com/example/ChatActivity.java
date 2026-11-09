@@ -15,10 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+// Activité ChatActivity: Écran mta3 el conversation en ligne (Fonctionnalité AI Générée b Google Gemini AI, el Prompt complet fel README.md)
 public class ChatActivity extends Activity {
 
     private static final String TAG = "GEMINI";
 
+    // Déclarina les composants graphique mta3 l'interface
     private Button btnRetourChatWs;
     private TextView tvTitreChatWs;
     private TextView tvModeWs;
@@ -38,8 +40,10 @@ public class ChatActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Nrbtou el layout activity_chat
         setContentView(R.layout.activity_chat);
 
+        // Norbtou kol variable Java b ID mte3ha fel XML
         btnRetourChatWs = findViewById(R.id.btn_retour_chat_ws);
         tvTitreChatWs = findViewById(R.id.tv_titre_chat_ws);
         tvModeWs = findViewById(R.id.tv_mode_ws);
@@ -54,8 +58,10 @@ public class ChatActivity extends Activity {
         adaptateurChatWs = new ChatAdapter(this, listeMessagesWs);
         lvMessagesWs.setAdapter(adaptateurChatWs);
 
+        // N'affichiw el message de bienvenue initial mta3 l'officier IA
         ajouterMessageBot(getString(R.string.chat_welcome));
 
+        // Bouton retour bech nsakrou ChatActivity
         btnRetourChatWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +69,7 @@ public class ChatActivity extends Activity {
             }
         });
 
+        // Bouton envoyer bech n'eb3thou el message l'API Gemini IA (AI Generated response)
         btnEnvoyerWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,35 +81,14 @@ public class ChatActivity extends Activity {
             }
         });
 
-        chipFrWs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                traiterEnvoiMessageWs(getString(R.string.preset_greeting_fr));
-            }
-        });
-
-        chipEnWs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                traiterEnvoiMessageWs(getString(R.string.preset_greeting_en));
-            }
-        });
-
-        chipArWs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                traiterEnvoiMessageWs(getString(R.string.preset_greeting_ar));
-            }
-        });
-
-        chipTnWs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                traiterEnvoiMessageWs(getString(R.string.preset_greeting_derja));
-            }
-        });
+        // Les chips mta3 les langues (Français, English, Arabe, Derja Tunisienne)
+        chipFrWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_fr)));
+        chipEnWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_en)));
+        chipArWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_ar)));
+        chipTnWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_derja)));
     }
 
+    // Fonction traiterEnvoiMessageWs: Tab3ath el message l'API Gemini (AI Generated) w t'récupéri el réponse
     private void traiterEnvoiMessageWs(final String messageTexte) {
         String heureActuelle = formatHeure.format(new Date());
         listeMessagesWs.add(new ChatMessage(messageTexte, true, heureActuelle));
@@ -111,6 +97,7 @@ public class ChatActivity extends Activity {
 
         btnEnvoyerWs.setEnabled(false);
 
+        // Appel API Gemini en ligne b System Prompt maktoub fel README.md
         GeminiClient.envoyerMessage(
                 getApplicationContext(),
                 listeMessagesWs,
@@ -127,7 +114,7 @@ public class ChatActivity extends Activity {
                     @Override
                     public void onError(String messageErreur) {
                         btnEnvoyerWs.setEnabled(true);
-                        Log.e(TAG, "Erreur de connexion IA: " + messageErreur);
+                        Log.e(TAG, "Erreur connexion Gemini IA: " + messageErreur);
                         Toast.makeText(ChatActivity.this, "Erreur IA: " + messageErreur, Toast.LENGTH_SHORT).show();
                         tvModeWs.setText("Erreur Connexion IA");
                         tvModeWs.setTextColor(getColor(R.color.couleur_refuse));
