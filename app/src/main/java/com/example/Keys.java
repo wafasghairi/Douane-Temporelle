@@ -1,11 +1,12 @@
 package com.example;
 
-// Déclarina classe publique esmha Keys
+// Déclarina classe publique esmha Keys mta3 les clés Intent
 public final class Keys {
 
-    // Ma 3rafnech chnya matricule card étudiant danc 7atina mta3 identity card
-    // Matricule mta3 Wafa Sghairi (1964) w Emna Ben Ali (3499)
-    public static final String MATRICULE = "1964";
+    // Matricules mta3 les membres du groupe (Wafa Sghairi & Emna Ben Ali)
+    public static final String MATRICULE_WAFA = "1964";
+    public static final String MATRICULE_EMNA = "3499";
+    public static final String MATRICULE = MATRICULE_WAFA; // Matricule par défaut pour générer les clés
 
     private Keys() {}
 
