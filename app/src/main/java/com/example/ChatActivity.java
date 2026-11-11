@@ -15,12 +15,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-// Activité ChatActivity: Écran mta3 el conversation en ligne (Fonctionnalité AI Générée b Google Gemini AI, el Prompt complet fel README.md)
+
+// Classe ChatActivity: L'activité principale mta3 el Chatbot IA
+// Tgéri el interface graphique, el envoi w el isti9bel mta3 les messages m3a API Gemini
+
 public class ChatActivity extends Activity {
 
     private static final String TAG = "GEMINI";
 
-    // Déclarina les composants graphique mta3 l'interface
+    // Déclarina les composants graphique mta3 l'interface XML
     private Button btnRetourChatWs;
     private TextView tvTitreChatWs;
     private TextView tvModeWs;
@@ -32,18 +35,20 @@ public class ChatActivity extends Activity {
     private EditText etMessageWs;
     private Button btnEnvoyerWs;
 
+    // Liste mta3 les messages mta3 el conversation w el adapter mte3ha
     private final List<ChatMessage> listeMessagesWs = new ArrayList<>();
     private ChatAdapter adaptateurChatWs;
 
+    // Formatter bech na5dhou l'heure actuelle mta3 irsal el message (HH:mm)
     private final SimpleDateFormat formatHeure = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Nrbtou el layout activity_chat
+        // Nrbtou l'activité bel fichier XML mte3ha "activity_chat"
         setContentView(R.layout.activity_chat);
 
-        // Norbtou kol variable Java b ID mte3ha fel XML
+        // Norbtou kol composant Java bel ID mte3ou eli fel XML
         btnRetourChatWs = findViewById(R.id.btn_retour_chat_ws);
         tvTitreChatWs = findViewById(R.id.tv_titre_chat_ws);
         tvModeWs = findViewById(R.id.tv_mode_ws);
@@ -55,13 +60,14 @@ public class ChatActivity extends Activity {
         etMessageWs = findViewById(R.id.et_message_ws);
         btnEnvoyerWs = findViewById(R.id.btn_envoyer_ws);
 
+        // Initialisation mta3 el ChatAdapter w rabto bel ListView
         adaptateurChatWs = new ChatAdapter(this, listeMessagesWs);
         lvMessagesWs.setAdapter(adaptateurChatWs);
 
-        // N'affichiw el message de bienvenue initial mta3 l'officier IA
+        // Naffichiw el message de bienvenue initial mta3 l'officier de douane IA
         ajouterMessageBot(getString(R.string.chat_welcome));
 
-        // Bouton retour bech nsakrou ChatActivity
+        // Bouton retour bech nsakrou el chat w narja3ou lel écran précèdent
         btnRetourChatWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,35 +75,38 @@ public class ChatActivity extends Activity {
             }
         });
 
-        // Bouton envoyer bech n'eb3thou el message l'API Gemini IA (AI Generated response)
+        // Bouton envoyer bech nb3thou el message el sahraou l'API Gemini IA
         btnEnvoyerWs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String texte = etMessageWs.getText().toString().trim();
                 if (!texte.isEmpty()) {
                     traiterEnvoiMessageWs(texte);
-                    etMessageWs.setText("");
+                    etMessageWs.setText(""); // N'vidiw el EditText ba3d el irsal
                 }
             }
         });
 
-        // Les chips mta3 les langues (Français, English, Arabe, Derja Tunisienne)
+        // Les chips rapides (Français, English, Arabe, Derja Tunisienne) bech n'testiw el langues b sehl
         chipFrWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_fr)));
         chipEnWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_en)));
         chipArWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_ar)));
         chipTnWs.setOnClickListener(v -> traiterEnvoiMessageWs(getString(R.string.preset_greeting_derja)));
     }
 
-    // Fonction traiterEnvoiMessageWs: Tab3ath el message l'API Gemini (AI Generated) w t'récupéri el réponse
+    // Fonction bech ttraiti l'envoie mt3 el message w t3ayt l'GeminiClient
     private void traiterEnvoiMessageWs(final String messageTexte) {
         String heureActuelle = formatHeure.format(new Date());
+
+        // 1. Nzidou message mta3 l'utilisateur lel list w n'refreshiw el adapter
         listeMessagesWs.add(new ChatMessage(messageTexte, true, heureActuelle));
         adaptateurChatWs.notifyDataSetChanged();
         lvMessagesWs.smoothScrollToPosition(listeMessagesWs.size() - 1);
 
+        // Nblokiw el bouton envoyer lin terja3 el réponse mta3 l'IA
         btnEnvoyerWs.setEnabled(false);
 
-        // Appel API Gemini en ligne b System Prompt maktoub fel README.md
+        // 2. Nab3thou el message l'GeminiClient (Requête HTTP asynchrone fel background)
         GeminiClient.envoyerMessage(
                 getApplicationContext(),
                 listeMessagesWs,
@@ -108,6 +117,7 @@ public class ChatActivity extends Activity {
                         btnEnvoyerWs.setEnabled(true);
                         tvModeWs.setText(getString(R.string.chat_mode_online));
                         tvModeWs.setTextColor(getColor(R.color.couleur_approuve_clair));
+                        // Nzidou réponse mta3 el Bot IA lel ListView
                         ajouterMessageBot(reponseGemini);
                     }
 
@@ -124,6 +134,7 @@ public class ChatActivity extends Activity {
         );
     }
 
+    // Fonction bech nzidou message mta3 el bot lel ListView w nscroliw lel e5er message
     private void ajouterMessageBot(String texteReponse) {
         String heureActuelle = formatHeure.format(new Date());
         listeMessagesWs.add(new ChatMessage(texteReponse, false, heureActuelle));
